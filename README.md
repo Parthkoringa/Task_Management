@@ -28,4 +28,5 @@ This is a .NET MVC web application that allows users to manage their tasks effic
 1. Clone the repository:
    ```bash
    git clone https://github.com/Parthkoringa/Task_Management.git
-2. open sln file in visual studio 
+2. open Visual Studio IDE and select Open project/Solution
+3. select To_Do_List.sln file 
