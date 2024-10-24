@@ -1,6 +1,3 @@
-# Task_Management
-.NET MVC EF based on website for managing tasks
-
 # Task Management Website
 This is a .NET MVC web application that allows users to manage their tasks efficiently. Users can create, update, delete, schedule, and filter tasks using this platform. The project leverages Entity Framework (EF) for database management, ensuring robust data handling and MVC model for handeling user interactions.
 
@@ -29,4 +26,5 @@ This is a .NET MVC web application that allows users to manage their tasks effic
    ```bash
    git clone https://github.com/Parthkoringa/Task_Management.git
 2. open Visual Studio IDE and select Open project/Solution
-3. select To_Do_List.sln file 
+3. select To_Do_List.sln file
+4. run project
