@@ -1,0 +1,35 @@
+﻿@model To_Do_List.Models.Task
+
+<h2>Edit Task</h2>
+
+<form asp-action="Edit_Task" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Task_title" class="control-label"></label>
+        <input asp-for="Task_title" class="form-control" />
+        <span asp-validation-for="Task_title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Task_description" class="control-label"></label>
+        <textarea asp-for="Task_description" class="form-control"></textarea>
+        <span asp-validation-for="Task_description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DueDate" class="control-label"></label>
+        <input asp-for="DueDate" class="form-control" />
+        <span asp-validation-for="DueDate" class="text-danger"></span>
+    </div>
+    <div class="form-group form-check">
+        <label class="form-check-label">
+            <input class="form-check-input" asp-for="IsComplete" /> @Html.DisplayNameFor(model => model.IsComplete)
+        </label>
+    </div>
+    <input type="hidden" asp-for="TaskId" />
+    <br />
+    <div class="form-group">
+        <input type="submit" value="Save Changes" class="btn btn-primary" />
+    </div>
+</form>
+
+<br />
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>

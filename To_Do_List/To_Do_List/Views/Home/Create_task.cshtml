@@ -1,0 +1,52 @@
+﻿@model To_Do_List.Models.TaskViewModel
+
+@{
+    ViewData["Title"] = "Create_task";
+}
+
+<h1>Create_task</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create_task">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @if(ViewBag.Message != null)
+            {
+                <span style="color: green; font-weight: bold; font-size: font-size: 30px;">@ViewBag.Message</span>
+            }
+            <div class="form-group">
+                <label asp-for="Task_title" class="control-label"></label>
+                <input asp-for="Task_title" class="form-control" />
+                <span asp-validation-for="Task_title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Task_description" class="control-label"></label>
+                <textarea asp-for="Task_description" class="form-control"></textarea>
+                <span asp-validation-for="Task_description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DueDate" class="control-label"></label>
+                <input asp-for="DueDate" class="form-control" />
+                <span asp-validation-for="DueDate" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsComplete" /> @Html.DisplayNameFor(model => model.IsComplete)
+                </label>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+
+            </div>
+        </form>
+        <br />
+                <a asp-action="Index" class="btn btn-primary">Back to List</a>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

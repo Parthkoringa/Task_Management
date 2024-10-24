@@ -1,0 +1,55 @@
+﻿@model To_Do_List.Models.Task
+
+<h2>Task Details</h2>
+<table class="table ">
+    <tr>
+        <th>Title:</th>
+        <td>@Model.Task_title</td>
+    </tr>
+    <tr>
+        <th>Description:</th>
+        <td>@Model.Task_description</td>
+    </tr>
+    <tr>
+        <th>Due Date:</th>
+        <td>@Model.DueDate</td>
+    </tr>
+    <tr>
+        <th>Completed:</th>
+        <td>@(Model.IsComplete ? "Yes" : "No")</td>
+    </tr>
+    <tr>
+        <th>Status:</th>
+        <td>
+            @if (Model.IsComplete)
+            {
+                <span>Completed</span>
+            }
+            else if (!Model.IsComplete && Model.DueDate < DateTime.Now)
+            {
+                <span style="color:red;">Expired</span>
+            }
+            else
+            {
+                <span>Pending</span>
+            }
+        </td>
+    </tr>
+</table>
+<br />
+<div class="task-actions">
+    @if (!Model.IsComplete)
+    {
+        <form asp-action="CompleteTask" method="post" style="display:inline;">
+            <input type="hidden" name="id" value="@Model.TaskId" />
+            <button type="submit" class="btn btn-success">Mark as Complete</button>
+        </form>
+    }
+    <a asp-action="Edit_Task" asp-route-id="@Model.TaskId" class="btn btn-warning">Modify Task</a>
+    <form asp-action="DeleteTask" method="post" style="display:inline;">
+        <input type="hidden" name="id" value="@Model.TaskId" />
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+</div>
+<br />
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>

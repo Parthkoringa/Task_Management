@@ -1,0 +1,66 @@
+﻿@model IEnumerable<To_Do_List.Models.Task>
+@{
+    if (TempData["UnauthorizedMessage"] != null)
+    {
+        <script>
+            alert('@TempData["UnauthorizedMessage"]');
+        </script>
+    }
+}
+<p>
+    <a asp-action="Create_task" class="btn btn-primary">Create new Task</a>
+</p>
+
+<h2>Task List</h2>
+<div class="filter-buttons" style="display: flex; align-items: center; gap: 10px;">
+    <a asp-action="Index" asp-route-filter="all" class="@((ViewBag.Filter == "all") ? "active" : "")">All Tasks</a>
+    <a asp-action="Index" asp-route-filter="completed" class="@((ViewBag.Filter == "completed") ? "active" : "")">Completed Tasks</a>
+    <a asp-action="Index" asp-route-filter="expired" class="@((ViewBag.Filter == "expired") ? "active" : "")">Expired Tasks</a>
+    <a asp-action="Index" asp-route-filter="pending" class="@((ViewBag.Filter == "pending") ? "active" : "")">Pending Tasks</a>
+    <form asp-action="Index" method="get" style="display: flex; align-items: center; margin-left: auto;">
+        <input type="text" placeholder="Enter Title" name="searchQuery" id="title" class="input input-group-text" />&nbsp <input type="submit" value="Search" class="btn btn-primary" />
+    </form>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Due Date</th>
+            <th>Completed</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var task in Model)
+        {
+            if (task.User != null && task.User.Name == Context.User.Identity.Name)
+            {
+                var rowClass = task.IsComplete ? "completed" : task.DueDate < DateTime.Now ? "expired" : "pending";
+                <tr class="@rowClass">
+                    <td>@task.Task_title</td>
+                    <td>@task.DueDate</td>
+                    <td>@(task.IsComplete ? "Yes" : "No")</td>
+                    <td>
+                        @if (task.IsComplete)
+                        {
+                            <span>Completed</span>
+                        }
+                        else if (!task.IsComplete && task.DueDate < DateTime.Now)
+                        {
+                            <span style="color:red;">Expired</span>
+                        }
+                        else
+                        {
+                            <span>Pending</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@task.TaskId" class="btn btn-info">View Details</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
